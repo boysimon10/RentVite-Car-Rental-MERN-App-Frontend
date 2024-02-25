@@ -1,14 +1,19 @@
 import React from 'react';
 import Card from '../components/Card';
 import Search from '../components/Search';
+import Navbar from '../components/Navbar';
+import Hero from '../components/Hero';
 
 function Home() {
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-4">Page Home</h1>
-      <Search/>
-      <Card/>
-    </div>
+    <>
+    <Navbar/>
+    <Hero/>
+      
+      <div className='mt-8 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 justify-center items-center'>
+      <Card/><Card/><Card/><Card/> <Card/><Card/><Card/><Card/>
+      </div>
+    </>
   )
 }
 

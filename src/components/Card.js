@@ -3,7 +3,7 @@ import React from 'react'
 function Card() {
 return (
     //gap à retoucher apres
-    <div className="mt-8 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 justify-center items-center">
+    <div className="">
 
 <div className="relative mx-auto w-full max-w-xs pt-6">
     <p
@@ -31,7 +31,7 @@ return (
                 className="line-clamp-1 text-base font-medium text-gray-800 md:text-lg"
                 title="New York"
               >
-                Toyota Corola
+                Toyota Corolla
               </h2>
               <p
                 className="mt-2 line-clamp-1 text-sm text-gray-800"
