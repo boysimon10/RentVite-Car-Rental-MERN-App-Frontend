@@ -1,15 +1,15 @@
 import React from 'react'
-
+import { Link } from 'react-router-dom';
 
 function Navbar() {
   return (
     <div className="container mx-auto">
       <div className="bg-white pb-6 sm:pb-8 lg:pb-12">
-  <header className="mb-8 border-b">
+  <header className="mb-8 mx-[100px]">
     <div className="mx-auto flex max-w-screen-2xl items-center justify-between px-4 md:px-8">
       {/* logo - start */}
-      <a
-        href="/"
+      <Link
+        to="/"
         className="inline-flex items-center gap-2.5 text-2xl font-bold text-black md:text-3xl"
         aria-label="logo"
       >
@@ -18,7 +18,7 @@ function Navbar() {
         height={94}
         src={require('./logo.png')}
         />
-      </a>
+      </Link>
       {/* logo - end */}
       {/* nav - start */}
       <nav className="hidden gap-12 lg:flex 2xl:ml-16">
