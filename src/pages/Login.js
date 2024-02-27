@@ -1,20 +1,21 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
 
+
+
 function Login() {
   return (
-    <div className='bg-gray-light'>
+    <div className=''>
     <Navbar/>
-<section className="bg-white flex justify-center mx-auto items-center">
+<section className="bg-white flex justify-center items-center mx-[120px]">
   <div className="container px-6 py-24 mx-auto lg:py-12">
     <div className="lg:flex">
       <div className="lg:w-1/2">
-        <h1 className="mt-4 text-gray-dark  md:text-lg">
-          Welcome back
-        </h1>
-        <h1 className="mt-4 text-2xl font-medium text-gray-dark capitalize lg:text-3xl ">
-          login to your account
-        </h1>
+        <img
+        src={require('./login.png')}
+        className=""
+        alt=""
+        />
       <div>
         
       </div>
@@ -69,7 +70,7 @@ function Login() {
           </div>
           <div className="mt-8 md:flex md:items-center">
             <button className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue rounded-lg md:w-1/2 hover:bg-blue-light focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
-              Sign in
+              connexion
             </button>
             <a
               href="#"

@@ -7,13 +7,13 @@ function Hero() {
     <div className="mb-8 flex flex-wrap justify-between md:mb-16">
       <div className="mb-6 flex w-full flex-col justify-center sm:mb-12 lg:mb-0 lg:w-1/3 lg:pb-24 lg:pt-48">
         <h1 className="mb-4 text-4xl font-bold text-black sm:text-5xl md:mb-8 md:text-6xl">
-          Find your
+          Trouve une
           <br />
-          style online
+          voiture
         </h1>
         <p className="max-w-md leading-relaxed text-gray-500 xl:text-lg">
-          This is a section of some simple filler text, also known as
-          placeholder text. It shares characteristics of real text.
+        Louez ou mettez en location votre véhicule
+        en toute simplicité avec notre plateforme
         </p>
       </div>
       <div className="mb-12 flex w-full md:mb-16 lg:w-2/3">

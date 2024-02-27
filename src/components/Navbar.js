@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 
 function Navbar() {
   return (
-    <div className="container mx-auto">
-      <div className="bg-white pb-6 sm:pb-8 lg:pb-12">
+    <div className="container mx-auto ">
+      <div className="bg-white ">
   <header className="mb-8 mx-[100px]">
     <div className="mx-auto flex max-w-screen-2xl items-center justify-between px-4 md:px-8">
       {/* logo - start */}
@@ -22,24 +22,24 @@ function Navbar() {
       {/* logo - end */}
       {/* nav - start */}
       <nav className="hidden gap-12 lg:flex 2xl:ml-16">
-        <a href="#" className="text-lg font-semibold text-blue">
+        <Link to="/" className="text-sm font-semibold text-blue">
           Home
-        </a>
+        </Link>
         <a
           href="#"
-          className="text-lg font-semibold text-gray-600 transition duration-100 hover:text-blue active:text-blue"
+          className="text-sm font-semibold text-gray-600 transition duration-100 hover:text-blue active:text-blue"
         >
           Collections
         </a>
         <a
           href="#"
-          className="text-lg font-semibold text-gray-600 transition duration-100 hover:text-blue active:text-blue"
+          className="text-sm font-semibold text-gray-600 transition duration-100 hover:text-blue active:text-blue"
         >
           Sale
         </a>
         <a
           href="#"
-          className="text-lg font-semibold text-gray-600 transition duration-100 hover:text-blue active:text-blue"
+          className="text-sm font-semibold text-gray-600 transition duration-100 hover:text-blue active:text-blue"
         >
           About
         </a>
@@ -65,7 +65,7 @@ function Navbar() {
               d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
             />
           </svg>
-          <span className="hidden text-xs font-semibold text-gray-500 sm:block">
+          <span className="hidden text-sm font-semibold text-gray-500 sm:block">
             Wishlist
           </span>
         </a>
@@ -87,7 +87,7 @@ function Navbar() {
               d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
             />
           </svg>
-          <span className="hidden text-xs font-semibold text-gray-500 sm:block">
+          <span className="hidden text-sm font-semibold text-gray-500 sm:block">
             Account
           </span>
         </a>
@@ -109,7 +109,7 @@ function Navbar() {
               d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
             />
           </svg>
-          <span className="hidden text-xs font-semibold text-gray-500 sm:block">
+          <span className="hidden text-sm font-semibold text-gray-500 sm:block">
             Cart
           </span>
         </a>
