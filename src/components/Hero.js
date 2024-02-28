@@ -7,9 +7,9 @@ function Hero() {
     <div className="mb-8 flex flex-wrap justify-between md:mb-16">
       <div className="mb-6 flex w-full flex-col justify-center sm:mb-12 lg:mb-0 lg:w-1/3 lg:pb-24 lg:pt-48">
         <h1 className="mb-4 text-4xl font-bold text-black sm:text-5xl md:mb-8 md:text-6xl">
-          Trouve une
+          Trouve ton
           <br />
-          voiture
+          style
         </h1>
         <p className="max-w-md leading-relaxed text-gray-500 xl:text-lg">
         Louez ou mettez en location votre véhicule
@@ -21,7 +21,7 @@ function Hero() {
           <img
             src={require('./carhead1.png')}
             loading="lazy"
-            alt="Photo by Kaung Htet"
+            alt="car1"
             className="h-full w-full object-cover object-center"
           />
         </div>
@@ -29,13 +29,14 @@ function Hero() {
           <img
             src={require('./carhead2.png')}
             loading="lazy"
-            alt="Photo by Manny Moreno"
+            alt="car2"
             className="h-full w-full object-cover object-center"
           />
         </div>
       </div>
     </div>
-    <div className="flex flex-col items-center justify-between gap-8 md:flex-row">
+    
+    {/* <div className="flex flex-col items-center justify-between gap-8 md:flex-row">
       <div className="flex h-12 w-64 divide-x overflow-hidden rounded-lg border">
         <a
           href="#"
@@ -56,7 +57,7 @@ function Hero() {
           Teens
         </a>
       </div>
-    </div>
+  </div>*/}
   </section>
     </div>
   )
