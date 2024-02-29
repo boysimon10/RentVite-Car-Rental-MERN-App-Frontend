@@ -18,7 +18,9 @@ function Login() {
       const response = await axios.post("http://localhost:5000/user/login", {
         email,
         password,
-      });
+      }, {
+        withCredentials: true, 
+      });  
 
       if (response.data.token) {
         window.location = "/";
