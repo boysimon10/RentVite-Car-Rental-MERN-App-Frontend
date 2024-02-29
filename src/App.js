@@ -1,33 +1,38 @@
 import React, { useState, useEffect } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import authService from './authService';
+import axios from "axios";
+import { UidContext } from "./UseContext";
 
 function App() {
-  const [authenticated, setAuthenticated] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [uid, setUid] = useState(null);
 
   useEffect(() => {
-    const checkAuth = async () => {
-      const isAuthenticated = await authService.isAuthenticated();
-      setAuthenticated(isAuthenticated);
-      setLoading(false);
+    const fetchToken = async () => {
+      await axios({
+        method: "get",
+        url: `http://localhost:5000/authenticated`,
+        withCredentials: true,
+      })
+        .then((res) => {
+          setUid(res.data);
+        })
+        .catch((err) => console.log("No token"));
     };
-    checkAuth();
-  }, []);
+    fetchToken();
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  }, [uid]);
 
   return (
+    <UidContext.Provider value={uid}>
     <Routes>
-      <Route path="/" element={authenticated ? <Home /> : <Navigate to="/login" />} />
+      <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
     </Routes>
+    </UidContext.Provider>
   );
 }
 
