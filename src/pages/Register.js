@@ -1,8 +1,46 @@
-import React from 'react';
 import Navbar from '../components/Navbar';
 import { Link } from 'react-router-dom';
+import axios from "axios";
+import React, { useState } from "react";
 
 function Register() {
+  const [nom, setNom] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [telephone, setTelephone] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [phoneError, setPhoneError] = useState("");
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    setEmailError("");
+    setPhoneError("");
+
+    try {
+      const response = await axios.post('http://localhost:5000/user/register', {
+        nom,
+        email,
+        password,
+        telephone,
+      });
+      console.log(response.data);
+      window.location = "/login";
+    } catch (err) {
+      if (err.response && err.response.data && err.response.data.error) {
+        const errorMessage = err.response.data.error;
+        if (errorMessage === 'Utilisateur déjà existant') {
+          setEmailError(errorMessage);
+        } else if (errorMessage === 'Numéro de téléphone déjà utilisé') {
+          setPhoneError(errorMessage);
+        } else {
+          console.error(errorMessage);
+        }
+      } else {
+        console.error('Une erreur inattendue s\'est produite');
+      }
+    }
+  };
+
   return (
 <div className=''>
     <Navbar/>
@@ -20,12 +58,12 @@ function Register() {
       </div>
       </div>
       <div className="mt-8 lg:w-1/2 lg:mt-0">
-        <form className="w-full lg:max-w-xl">
+        <form className="w-full lg:max-w-xl" onSubmit={handleRegister}>
         <div className="relative flex items-center">
             <span className="absolute">
               <svg xmlns="http://www.w3.org/2000/svg"
               fill="none"
-               viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 mx-3 text-gray-300">
+              viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 mx-3 text-gray-300">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
               </svg>
             </span>
@@ -33,6 +71,8 @@ function Register() {
               type="text"
               className="block w-full py-3 text-gray-dark bg-white border rounded-lg px-11  focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
               placeholder="Nom"
+              onChange={(e) => setNom(e.target.value)} value={nom}
+
             />
           </div>
           <div className="relative flex items-center mt-4">
@@ -56,6 +96,7 @@ function Register() {
               type="email"
               className="block w-full py-3 text-gray-dark bg-white border rounded-lg px-11  focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
               placeholder="Email address"
+              onChange={(e) => setEmail(e.target.value)} value={email}
             />
           </div>
           <div className="relative flex items-center mt-4">
@@ -79,12 +120,13 @@ function Register() {
               type="password"
               className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg  focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
               placeholder="Password"
+              onChange={(e) => setPassword(e.target.value)} value={password}
             />
           </div>
           <div className="relative flex items-center mt-4">
             <span className="absolute">
             <svg xmlns="http://www.w3.org/2000/svg"
-             fill="none"
+            fill="none"
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
@@ -99,10 +141,12 @@ function Register() {
               type="tel"
               className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg  focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
               placeholder="Telephone"
+              onChange={(e) => setTelephone(e.target.value)} value={telephone}
             />
           </div>
+          <div className="text-red-500">{emailError || phoneError}</div>
           <div className="mt-8 md:flex md:items-center">
-            <button className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue rounded-lg md:w-1/2 hover:bg-blue-light focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
+            <button type="submit" className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue rounded-lg md:w-1/2 hover:bg-blue-light focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
               S'inscrire
             </button>
             <Link
@@ -113,6 +157,7 @@ function Register() {
             </Link>
           </div>
         </form>
+        
       </div>
     </div>
   </div>
