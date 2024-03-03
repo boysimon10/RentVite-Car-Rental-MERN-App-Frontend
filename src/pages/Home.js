@@ -9,7 +9,7 @@ function Home() {
     return (
     <div>
             {uid ? (
-                <Navbar />
+                <Navbar/>
         ) : (
             <div>
                 <Navbar />

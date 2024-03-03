@@ -6,8 +6,8 @@ import { UidContext } from '../UseContext';
 function Navbar() {
   const uid = useContext(UidContext);
   return (
-    <div className="container mx-auto ">
-      <div className="bg-white ">
+    <div className="container mx-auto">
+      <div className="bg-white">
         <header className="mb-8 mx-[100px]">
           <div className="mx-auto flex max-w-screen-2xl items-center justify-between px-4 md:px-8">
             {/* logo - start */}

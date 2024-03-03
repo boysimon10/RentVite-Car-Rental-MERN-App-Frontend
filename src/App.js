@@ -5,8 +5,10 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Logout from './pages/Logout';
 import Explore from './pages/Explore';
+import Account from './pages/Account';
 import axios from "axios";
 import { UidContext } from "./UseContext";
+
 
 
 
@@ -21,13 +23,14 @@ function App() {
         withCredentials: true,
       })
         .then((res) => {
-          setUid(res.data);
+          setUid(res.data.userId);
+          console.log(res.data.userId)
         })
         .catch((err) => console.log("No token"));
     };
     fetchToken();
 
-  }, [uid]);
+  }, []);
 
   return (
     <UidContext.Provider value={uid}>
@@ -37,6 +40,7 @@ function App() {
       <Route path="/register" element={<Register />} />
       <Route path="/logout" element={<Logout />} />
       <Route path="/explore" element={<Explore />} />
+      <Route path="/account" element={<Account />} />
     </Routes>
     </UidContext.Provider>
   );
