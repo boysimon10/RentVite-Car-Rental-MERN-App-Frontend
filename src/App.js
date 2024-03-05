@@ -10,8 +10,6 @@ import axios from "axios";
 import { UidContext } from "./UseContext";
 
 
-
-
 function App() {
   const [uid, setUid] = useState(null);
 

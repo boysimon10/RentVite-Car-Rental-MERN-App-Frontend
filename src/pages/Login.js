@@ -24,7 +24,7 @@ function Login() {
       });  
 
       if (response.data.token) {
-        window.location = "/";
+        window.location = "/account";
       }
     } catch (err) {
       if (err.response && err.response.data && err.response.data.error) {

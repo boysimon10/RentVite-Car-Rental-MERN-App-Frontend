@@ -1,16 +1,23 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import CardList from '../components/CardList'
 import Navbar from '../components/Navbar'
-import Card from '../components/Card'
 
-function Explore() {
-  return (
-    <>
-    <Navbar />
-    <div className='mt-8 mx-[120px] grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 justify-center items-center'>
-    <Card /><Card /><Card /><Card /><Card /><Card /><Card /><Card />
-    </div>
-    </>
-  )
-}
+const Explore = () => {
+    const [cars, setCars] = useState([]);
 
-export default Explore
+    useEffect(() => {
+        axios.get('http://localhost:5000/car/')
+            .then(response => setCars(response.data))
+            .catch(error => console.error(error));
+    }, []);
+
+    return (
+      <>
+        <Navbar />
+        <CardList cars={cars} />
+      </>
+    );
+};
+
+export default Explore;
