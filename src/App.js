@@ -6,8 +6,10 @@ import Register from './pages/Register';
 import Logout from './pages/Logout';
 import Explore from './pages/Explore';
 import Account from './pages/Account';
+import AddCar from './pages/AddCar';
 import axios from "axios";
 import { UidContext } from "./UseContext";
+import CarDetail from './pages/CarDetail';
 
 
 function App() {
@@ -28,7 +30,7 @@ function App() {
     };
     fetchToken();
 
-  }, []);
+  }, [uid]);
 
   return (
     <UidContext.Provider value={uid}>
@@ -39,6 +41,8 @@ function App() {
       <Route path="/logout" element={<Logout />} />
       <Route path="/explore" element={<Explore />} />
       <Route path="/account" element={<Account />} />
+      <Route path="/addcar" element={<AddCar />} />
+      <Route path="/cardetail/:id" element={<CarDetail />} />
     </Routes>
     </UidContext.Provider>
   );

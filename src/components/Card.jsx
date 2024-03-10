@@ -1,7 +1,6 @@
 import React from 'react'
 
 const Card = ({ car }) => (
-    //gap à retoucher apres
     <div key={car._id}>
 
 <div className="relative mx-auto w-full max-w-xs pt-6">
