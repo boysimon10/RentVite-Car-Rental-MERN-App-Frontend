@@ -4,13 +4,11 @@ const Card = ({ car }) => (
     <div key={car._id}>
 
 <div className="relative mx-auto w-full max-w-xs pt-6">
-    <p
-    className="relative inline-block w-full transform transition-transform duration-300 ease-in-out">
     <div className="rounded-lg">
       <div className="relative flex h-60 justify-center overflow-hidden rounded-lg cursor-pointer">
         <div className="w-full transform transition-transform duration-500 ease-in-out hover:scale-110">
           <img
-            src={require('./car.png')}
+            src={car.photos[0]}
             alt=""
           />
         </div>
@@ -68,7 +66,6 @@ const Card = ({ car }) => (
         </div>
       </div>
     </div>
-  </p>
 </div>
 </div>
 )

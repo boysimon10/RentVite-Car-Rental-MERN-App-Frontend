@@ -10,6 +10,7 @@ import AddCar from './pages/AddCar';
 import axios from "axios";
 import { UidContext } from "./UseContext";
 import CarDetail from './pages/CarDetail';
+import Bookings from './pages/Bookings';
 
 
 function App() {
@@ -43,6 +44,7 @@ function App() {
       <Route path="/account" element={<Account />} />
       <Route path="/addcar" element={<AddCar />} />
       <Route path="/cardetail/:id" element={<CarDetail />} />
+      <Route path="/bookings/" element={<Bookings />} />
     </Routes>
     </UidContext.Provider>
   );

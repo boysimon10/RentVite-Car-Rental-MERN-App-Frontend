@@ -1,13 +1,24 @@
 import React from 'react'
 import Navbar from '../components/Navbar'
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
+import { UidContext } from '../UseContext';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { LuFuel } from "react-icons/lu";
+import { FaWheelchair } from "react-icons/fa6";
+import { MdOutlineReduceCapacity } from "react-icons/md";
+import { IoLocation } from "react-icons/io5";
 
 const CarDetail = () => {
+  axios.defaults.withCredentials = true;
+  const uid = useContext(UidContext);
+
   const { id } = useParams();
   const [car, setCar] = useState(null);
+
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+  const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
     const fetchCar = async () => {
@@ -29,7 +40,55 @@ const CarDetail = () => {
       </div>
     );
   }
-  
+
+  const currentDate = new Date().toISOString().split('T')[0];
+
+    const handleStartDateChange = (date) => {
+        setStartDate(date);
+        calculateTotalPrice(date, endDate);
+    };
+
+    const handleEndDateChange = (date) => {
+        setEndDate(date);
+        calculateTotalPrice(startDate, date);
+    };
+
+    const calculateTotalPrice = (start, end) => {
+        if (start && end) {
+            const days = Math.ceil((new Date(end) - new Date(start)) / (1000 * 60 * 60 * 24));
+            setTotalPrice(days * car.tarifs);
+        }
+    };
+
+    
+  const handleBookCar = async (e) => {
+    e.preventDefault();
+    try {
+      if (new Date(startDate) < new Date(currentDate) || new Date(endDate) < new Date(currentDate)) {
+          throw new Error('Veuillez sélectionner des dates valides.');
+      }
+
+      if (uid === car.proprietaire._id) {
+        alert("Vous ne pouvez pas louer votre propre voiture.");
+        return;
+      }
+
+      const response = await axios.post('http://localhost:5000/booking', {
+          user: uid, // Utilisation de l'userId du contexte utilisateur
+          car: car._id,
+          dateDebut: startDate,
+          dateFin: endDate,
+          tarifstotals:totalPrice
+      });
+      console.log('Réservation effectuée:', response.data);
+      window.location = "/bookings";
+      
+  } catch (error) {
+      console.error('Erreur lors de la réservation:', error);
+      // la logique de gestion des erreurs
+  }
+  }
+
   return (
     <div>
       <Navbar />
@@ -38,8 +97,8 @@ const CarDetail = () => {
     <div className="lg:w-4/5 mx-auto flex flex-wrap ">
       <img
         alt="ecommerce"
-        className="lg:w-1/2 w-full object-cover object-center rounded border border-gray-200 rounded-lg"
-        src={require('../components/car.png')}
+        className="lg:w-1/2 w-full object-cover object-center border border-gray-200 rounded-lg"
+        src={car.photos[0]}
       />
       <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
         <h2 className="text-sm title-font text-gray-500 tracking-widest">
@@ -48,58 +107,63 @@ const CarDetail = () => {
         <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
         {car.marque} {car.modele}
         </h1>
-        <div className="flex mb-4">
-          <span className="flex items-center">
-          <span>
-              <LuFuel className="bg-gray-light"  /> {car.typeCarburant}
-            </span>
-            <span>
-              <LuFuel /> {car.transmission}
-            </span>
-          </span>
+        <div className="flex mb-4 mt-4">
+              <span className="flex items-center">
+              <span className="mr-2">
+                  <LuFuel className="bg-gray-light" />
+              </span>
+              <span className="mr-6">{car.typeCarburant}</span>
+              <span className="mr-2">
+                  <FaWheelchair />
+              </span>
+              <span className="mr-6">{car.transmission}</span>
+              <span className="mr-2">
+              <MdOutlineReduceCapacity />
+              </span>
+        <span className='mr-6'>{car.capaciteAccueil}</span>
+        <span className="mr-2">
+              <IoLocation />
+              </span>
+        <span>{car.lieuPriseEnCharge}</span>
+        </span>
         </div>
         <p className="leading-relaxed">
         {car.description}
         </p>
+      <form onSubmit={handleBookCar}>
         <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-200 mb-5">
-          <div className="flex">
-            <span className="mr-3">Color</span>
-            <button className="border-2 border-gray-300 rounded-full w-6 h-6 focus:outline-none" />
-            <button className="border-2 border-gray-300 ml-1 bg-gray-700 rounded-full w-6 h-6 focus:outline-none" />
-            <button className="border-2 border-gray-300 ml-1 bg-red-500 rounded-full w-6 h-6 focus:outline-none" />
-          </div>
-          <div className="flex ml-6 items-center">
-            <span className="mr-3">Size</span>
+        
+          <div className="flex ml-0 items-center">
+            <span className="mr-3">De</span>
             <div className="relative">
-              <select className="rounded border appearance-none border-gray-400 py-2 focus:outline-none focus:border-red-500 text-base pl-3 pr-10">
-                <option>SM</option>
-                <option>M</option>
-                <option>L</option>
-                <option>XL</option>
-              </select>
-              <span className="absolute right-0 top-0 h-full w-10 text-center text-gray-600 pointer-events-none flex items-center justify-center">
-                <svg
-                  fill="none"
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  className="w-4 h-4"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M6 9l6 6 6-6" />
-                </svg>
-              </span>
+              <input type="date"
+                className='rounded border appearance-none  py-2 focus:outline-none border-blue text-base pl-3 pr-2'
+                id="start" name="start" value={startDate} min={currentDate} onChange={(e) => handleStartDateChange(e.target.value)} />
             </div>
+            <span className="mr-3 ml-4">à</span>
+            <div className="relative">
+              <input type="date"
+                className='rounded border appearance-none py-2 focus:outline-none border-blue text-base pl-3 pr-2'
+                id="end" name="end" value={endDate} min={currentDate} onChange={(e) => handleEndDateChange(e.target.value)} />
+            </div>
+            
           </div>
         </div>
         <div className="flex">
           <span className="title-font font-medium text-2xl text-gray-900">
-          {car.tarifs} /jour
+          {car.tarifs}/Jour - Prix total: {totalPrice} FCFA
           </span>
-          <button className="flex ml-auto text-white bg-blue border-0 py-2 px-6 focus:outline-none hover:bg-blue-light rounded">
+          {uid ? (
+          <button type="submit" className="flex ml-auto text-white bg-blue border-0 py-2 px-6 focus:outline-none hover:bg-blue-light rounded">
             Reserver
           </button>
+           ) : (
+            <Link to="/login">
+            <button type="submit" className="flex ml-auto text-white bg-blue border-0 py-2 px-6 focus:outline-none hover:bg-blue-light rounded">
+            Se connecter pour reserver
+          </button></Link>
+          )}
+          {/*
           <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
             <svg
               fill="currentColor"
@@ -111,8 +175,9 @@ const CarDetail = () => {
             >
               <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" />
             </svg>
-          </button>
+          </button> */}
         </div>
+      </form>
       </div>
     </div>
   </div>
@@ -121,4 +186,4 @@ const CarDetail = () => {
   )
 }
 
-export default CarDetail
+export default CarDetail;
