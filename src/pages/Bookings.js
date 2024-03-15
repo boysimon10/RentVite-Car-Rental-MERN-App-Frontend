@@ -1,22 +1,63 @@
-import React from 'react'
-import Navbar from '../components/Navbar'
-import BookingItem from '../components/BookingItem'
-
-// import { LuFuel } from "react-icons/lu";
-// import { FaWheelchair } from "react-icons/fa6";
-// import { MdOutlineReduceCapacity } from "react-icons/md";
-// import { IoLocation } from "react-icons/io5";
+import React, { useEffect, useState, useContext } from 'react';
+import axios from 'axios';
+import Navbar from '../components/Navbar';
+import BookingList from '../components/BookingList';
+import { UidContext } from '../UseContext';
+import Login from '../pages/Login';
 
 function Bookings() {
-  return (
-    <>
-      <Navbar />
-      <div className="mx-auto max-w-5xl justify-center px-6 md:flex md:flex-wrap ">
-        <BookingItem /><BookingItem /><BookingItem /><BookingItem />
-      </div>
+    const uid = useContext(UidContext);
+    const [bookings, setBookings] = useState([]);
 
-    </>
-  )
+    useEffect(() => {
+        axios.defaults.withCredentials = true;
+        const fetchBookings = async () => {
+            try {
+                const response = await axios.get('http://localhost:5000/booking/');
+                setBookings(response.data);
+            } catch (error) {
+                console.error('Error fetching bookings:', error);
+            }
+        };
+
+        fetchBookings();
+    }, []);
+
+    const handleAcceptBooking = (id) => {
+      axios.put(`http://localhost:5000/booking/${id}/confirm`, { statut: 'acceptée' }).then((response) => {
+          // Mise à jour de l'état local avec la réservation mise à jour
+          setBookings((prevBookings) =>
+              prevBookings.map((booking) =>
+                  booking.id === id ? { ...booking, statut: response.data.statut } : booking
+              )
+          );
+          window.location.reload(); // Rechargement de la page
+      });
+  };
+  
+  const handleRejectBooking = (id) => {
+      axios.put(`http://localhost:5000/booking/${id}/confirm`, { statut: 'refusée' }).then((response) => {
+          // Mise à jour de l'état local avec la réservation mise à jour
+          setBookings((prevBookings) =>
+              prevBookings.map((booking) =>
+                  booking.id === id ? { ...booking, statut: response.data.statut } : booking
+              )
+          );
+          window.location.reload(); // Rechargement de la page
+      });
+  };
+  
+
+    return (
+        <>
+            <Navbar />
+            {uid ? (
+                <BookingList bookings={bookings} onAcceptBooking={handleAcceptBooking} onRejectBooking={handleRejectBooking} />
+            ) : (
+                <Login />
+            )}
+        </>
+    );
 }
 
-export default Bookings
+export default Bookings;

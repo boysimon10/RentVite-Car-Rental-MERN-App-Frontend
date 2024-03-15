@@ -14,7 +14,6 @@ function Home() {
             <div>
                 <Navbar />
                 <Hero />
-                
             </div>
         )}
     </div>
