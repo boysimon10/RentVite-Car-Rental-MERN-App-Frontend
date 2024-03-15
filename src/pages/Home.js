@@ -9,7 +9,10 @@ function Home() {
     return (
     <div>
             {uid ? (
+                <>
                 <Navbar/>
+                <Hero />
+                </>
         ) : (
             <div>
                 <Navbar />

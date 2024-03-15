@@ -49,7 +49,7 @@ function Register() {
     <div className="lg:flex">
       <div className="lg:w-1/2">
         <img
-        src={require('./register.png')}
+        src='./assets/register.png'
         className=""
         alt=""
         />

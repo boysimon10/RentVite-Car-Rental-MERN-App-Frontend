@@ -65,7 +65,7 @@ function AddCar() {
         <div className="container px-6 py-24 mx-auto lg:py-12">
           <div className="lg:flex">
             <div className="lg:w-1/2">
-              <img src={require('./car.png')} className="" alt="" />
+              <img src='./assets/addcar.png' className="" alt="" />
             </div>
             <div className="mt-8 lg:w-1/2 lg:mt-0">
               <form className="w-full lg:max-w-xl" onSubmit={handleAddCar}>

@@ -20,7 +20,7 @@ function Navbar() {
                 width={95}
                 height={94}
                 alt="logo"
-                src={require('./logo.png')}
+                src='./assets/logo.png'
               />
             </Link>
             {/* logo - end */}
@@ -54,7 +54,7 @@ function Navbar() {
               {uid ? (  
                 <>
                 <Link
-                  to="/"
+                  to="/account"
                   className="flex h-12 w-12 flex-col items-center justify-center gap-1.5 transition duration-100 hover:bg-gray-100 active:bg-gray-200 sm:h-20 sm:w-20 md:h-24 md:w-24"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" 

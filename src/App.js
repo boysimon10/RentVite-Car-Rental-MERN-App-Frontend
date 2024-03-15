@@ -6,6 +6,7 @@ import Register from './pages/Register';
 import Logout from './pages/Logout';
 import Explore from './pages/Explore';
 import Account from './pages/Account';
+import AccountSet from './pages/AccountSet';
 import AddCar from './pages/AddCar';
 import axios from "axios";
 import { UidContext } from "./UseContext";
@@ -42,6 +43,7 @@ function App() {
       <Route path="/logout" element={<Logout />} />
       <Route path="/explore" element={<Explore />} />
       <Route path="/account" element={<Account />} />
+      <Route path="/accountsetting" element={<AccountSet />} />
       <Route path="/addcar" element={<AddCar />} />
       <Route path="/cardetail/:id" element={<CarDetail />} />
       <Route path="/bookings/" element={<Bookings />} />
