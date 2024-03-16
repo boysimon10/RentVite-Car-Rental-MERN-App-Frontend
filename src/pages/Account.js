@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import Navbar from '../components/Navbar';
 import Login from '../pages/Login';
+import Loading from '../components/Loading';
 import { Link } from 'react-router-dom';
 import { IoIosMail } from "react-icons/io";
 import { FaPhoneAlt } from "react-icons/fa";
@@ -13,18 +14,21 @@ import { UidContext } from '../UseContext';
 function Account() {
     axios.defaults.withCredentials = true;
     const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true); // gere le chargement quand y'a requete
     const uid = useContext(UidContext);
     const strUcFirst = (string) => {
         return string.charAt(0).toUpperCase() + string.slice(1);
-    };
+    };// simple fonction qui Met en majuscule le premier lettre
 
     useEffect(() => {
         const fetchUser = async () => {
             try {
                 const res = await axios.get(`http://localhost:5000/user/${uid}`);
                 setUser(res.data);
+                setLoading(false);
             } catch (err) {
                 console.error('Erreur lors de la récupération des informations de l\'utilisateur :', err);
+                setLoading(false); 
             }
         };
         if (uid) {
@@ -34,7 +38,12 @@ function Account() {
 
     return (
         <div>
-            {user ? (
+            {loading ? ( // Affiche le spinner pendant le chargement
+                    <>
+                    <Loading />
+                    </>
+                
+            ) : user ? (
                 <>
                     <Navbar />
                     <div className="">
@@ -48,10 +57,10 @@ function Account() {
                             </div>
                             <div className="mt-16">
                                 <h1 className="font-bold text-center text-3xl text-gray-900">
-                                {user.nom}
+                                    {user.nom}
                                 </h1>
                                 <p className="text-center text-sm text-gray-400 font-medium">
-                                Compte {strUcFirst(user.role)}
+                                    Compte {strUcFirst(user.role)}
                                 </p>
                                 <div className="my-5 px-6">
                                     <Link
@@ -75,14 +84,12 @@ function Account() {
                                         Paramètre
                                     </Link>
                                     {user.role === "business" ? (
-                                    <Link to="/addcar" className="flex items-center text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded transition duration-150 ease-in font-medium text-sm text-center w-full py-3">
-                                        <FaCarAlt className="w-4 h-4 mx-3" />
-                                        +Location
-                                    </Link>
+                                        <Link to="/addcar" className="flex items-center text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded transition duration-150 ease-in font-medium text-sm text-center w-full py-3">
+                                            <FaCarAlt className="w-4 h-4 mx-3" />
+                                            +Location
+                                        </Link>
                                     ) : null}
-
                                 </div>
-
                                 <div className="w-full">
                                     {/*<h3 className="font-medium text-gray-900 text-left px-6">
                                         Recent activites
@@ -160,6 +167,6 @@ function Account() {
             )}
         </div>
     );
-}    
+}
 
 export default Account;

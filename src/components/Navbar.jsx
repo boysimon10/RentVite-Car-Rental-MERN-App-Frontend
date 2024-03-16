@@ -20,30 +20,30 @@ function Navbar() {
                 width={95}
                 height={94}
                 alt="logo"
-                src='./assets/logo.png'
+                src={process.env.PUBLIC_URL + '/assets/logo.png'}
               />
             </Link>
             {/* logo - end */}
             {/* nav - start */}
             <nav className="hidden gap-12 lg:flex 2xl:ml-16">
-              <Link to="/" className="text-sm font-semibold text-gray-600 transition duration-100 hover:text-blue active:text-blue">
+              <Link to="/" className="text-base font-semibold text-gray-600 transition duration-100 hover:text-blue active:text-blue">
                 Home
               </Link>
               <Link
                 to="/explore"
-                className="text-sm font-semibold text-gray-600 transition duration-100 hover:text-blue active:text-blue"
+                className="text-base font-semibold text-gray-600 transition duration-100 hover:text-blue active:text-blue"
               >
                 Explore
               </Link>
               <Link
                 to="/"
-                className="text-sm font-semibold text-gray-600 transition duration-100 hover:text-blue active:text-blue"
+                className="text-base font-semibold text-gray-600 transition duration-100 hover:text-blue active:text-blue"
               >
                 Sale
               </Link>
               <Link
                 to="/"
-                className="text-sm font-semibold text-gray-600 transition duration-100 hover:text-blue active:text-blue"
+                className="text-base font-semibold text-gray-600 transition duration-100 hover:text-blue active:text-blue"
               >
                 About
               </Link>

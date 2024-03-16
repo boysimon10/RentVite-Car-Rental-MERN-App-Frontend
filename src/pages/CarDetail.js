@@ -1,5 +1,6 @@
-import React from 'react'
-import Navbar from '../components/Navbar'
+import Navbar from '../components/Navbar';
+import Loading from '../components/Loading';
+import Error from './Error';
 import { useParams, Link } from 'react-router-dom';
 import { UidContext } from '../UseContext';
 import axios from 'axios';
@@ -20,24 +21,33 @@ const CarDetail = () => {
   const [endDate, setEndDate] = useState('');
   const [totalPrice, setTotalPrice] = useState(0);
 
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const fetchCar = async () => {
       try {
         const response = await axios.get(`http://localhost:5000/car/${id}`);
         setCar(response.data);
+        setLoading(false);
       } catch (error) {
         console.error('Error fetching car:', error);
+        setLoading(false);
       }
     };
 
     fetchCar();
   }, [id]);
 
+  if (loading) {
+    return (
+      <>
+          <Loading />
+      </>
+    );
+  } 
   if (!car) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <h1 className="text-4xl font-bold text-red-500">Chargement...</h1>
-      </div>
+      <Error />
     );
   }
 
@@ -90,7 +100,7 @@ const CarDetail = () => {
   }
 
   return (
-    <div>
+    <>
       <Navbar />
       <section className="text-gray-700 body-font overflow-hidden bg-white">
   <div className="container px-5 py-5 mx-auto">
@@ -182,7 +192,7 @@ const CarDetail = () => {
     </div>
   </div>
 </section>
-    </div>
+    </>
   )
 }
 
