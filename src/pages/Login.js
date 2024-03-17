@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
 import Navbar from '../components/Navbar';
+import Account from './Account';
 import { Link } from 'react-router-dom';
+import { UidContext } from '../UseContext';
 
 
 function Login() {
+  const uid = useContext(UidContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -44,6 +47,12 @@ function Login() {
 
   return (
     <div>
+       {uid ? (
+        <>
+        <Account />
+        </>
+        ) : (
+          <>
       <Navbar />
       <section className="bg-white flex justify-center items-center mx-[120px]">
         <div className="container px-6 py-24 mx-auto lg:py-12">
@@ -79,6 +88,8 @@ function Login() {
           </div>
         </div>
       </section>
+      </>
+      )}
     </div>
   );
 }

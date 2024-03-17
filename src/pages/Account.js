@@ -40,6 +40,7 @@ function Account() {
         <div>
             {loading ? ( // Affiche le spinner pendant le chargement
                     <>
+                    <Navbar/>
                     <Loading />
                     </>
                 
@@ -71,20 +72,20 @@ function Account() {
                                     </Link>
                                 </div>
                                 <div className="flex justify-between">
-                                    <p className="flex items-center text-gray-500 rounded transition duration-150 ease-in font-medium text-sm text-center w-full py-3">
+                                    <p className="flex items-center flex-col text-gray-500 rounded transition duration-150 ease-in font-medium text-sm text-center w-full py-3">
                                         <IoIosMail className="w-4 h-4 mx-3" />
                                         {user.email}
                                     </p>
-                                    <p className="flex items-center text-gray-500 rounded transition duration-150 ease-in font-medium text-sm text-center w-full py-3">
+                                    <p className="flex items-center flex-col text-gray-500 rounded transition duration-150 ease-in font-medium text-sm text-center w-full py-3">
                                         <FaPhoneAlt className="w-4 h-4 mx-3" />
-                                        {user.telephone}
+                                        +221 {user.telephone}
                                     </p>
-                                    <Link to="/accountsetting" className="flex items-center text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded transition duration-150 ease-in font-medium text-sm text-center w-full py-3">
+                                    <Link to="/accountsetting" className="flex items-center flex-col text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded transition duration-150 ease-in font-medium text-sm text-center w-full py-3">
                                         <IoMdSettings className="w-4 h-4 mx-3" />
                                         Paramètre
                                     </Link>
                                     {user.role === "business" ? (
-                                        <Link to="/addcar" className="flex items-center text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded transition duration-150 ease-in font-medium text-sm text-center w-full py-3">
+                                        <Link to="/addcar" className="flex items-center flex-col text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded transition duration-150 ease-in font-medium text-sm text-center w-full py-3">
                                             <FaCarAlt className="w-4 h-4 mx-3" />
                                             +Location
                                         </Link>

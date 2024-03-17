@@ -10,31 +10,31 @@ function Footer() {
       <nav className="flex flex-wrap justify-center gap-x-4 gap-y-2 md:justify-start md:gap-6">
         <Link
           to="/"
-          className="text-gray-500 transition duration-100 hover:text-blue active:text-indigo-600"
+          className="text-gray-500 transition duration-100 hover:text-blue active:text-blue-light"
         >
           Home
         </Link>
         <Link
           to="/explore"
-          className="text-gray-500 transition duration-100 hover:text-indigo-500 active:text-indigo-600"
+          className="text-gray-500 transition duration-100 hover:text-blue active:text-blue-light"
         >
          Explore
         </Link>
         <Link
           to="/"
-          className="text-gray-500 transition duration-100 hover:text-indigo-500 active:text-indigo-600"
+          className="text-gray-500 transition duration-100 hover:text-blue active:text-blue-light"
         >
           Sale
         </Link>
         <Link
           to="/"
-          className="text-gray-500 transition duration-100 hover:text-indigo-500 active:text-indigo-600"
+          className="text-gray-500 transition duration-100 hover:text-blue active:text-blue-light"
         >
           about
         </Link>
         <Link
           to="/"
-          className="text-gray-500 transition duration-100 hover:text-indigo-500 active:text-indigo-600"
+          className="text-gray-500 transition duration-100 hover:text-blue active:text-blue-light"
         >
           Blog
         </Link>
@@ -43,7 +43,6 @@ function Footer() {
       {/* social - start */}
       <div className="flex gap-4">
         <p
-          href="#"
           target="_blank"
           className="text-gray-400 transition duration-100 hover:text-gray-500 active:text-gray-600"
         >
@@ -59,7 +58,6 @@ function Footer() {
           </svg>
         </p>
         <p
-          href="#"
           target="_blank"
           className="text-gray-400 transition duration-100 hover:text-gray-500 active:text-gray-600"
         >
@@ -75,7 +73,6 @@ function Footer() {
           </svg>
         </p>
         <p
-          href="#"
           target="_blank"
           className="text-gray-400 transition duration-100 hover:text-gray-500 active:text-gray-600"
         >
@@ -110,7 +107,7 @@ function Footer() {
       {/* social - end */}
     </div>
     <div className="py-8 text-center text-sm text-gray-400">
-      © 2024 - Monax(S1m0n.dev). All rights reserved.
+      © 2024 - Monax (S1m0n.dev). All rights reserved.
     </div>
   </footer>
 </div>

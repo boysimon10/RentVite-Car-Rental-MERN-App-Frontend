@@ -1,9 +1,12 @@
 import Navbar from '../components/Navbar';
+import Account from './Account';
 import { Link } from 'react-router-dom';
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { UidContext } from '../UseContext';
 
 function Register() {
+  const uid = useContext(UidContext);
   const [nom, setNom] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -24,7 +27,7 @@ function Register() {
         telephone,
       });
       console.log(response.data);
-      window.location = "/login";
+      window.location = "/account";
     } catch (err) {
       if (err.response && err.response.data && err.response.data.error) {
         const errorMessage = err.response.data.error;
@@ -42,7 +45,13 @@ function Register() {
   };
 
   return (
-<div className=''>
+<div>
+{uid ? (
+        <>
+        <Account />
+        </>
+        ) : (
+          <>
     <Navbar/>
 <section className="bg-white flex justify-center items-center mx-[120px]">
   <div className="container px-6 py-24 mx-auto lg:py-12">
@@ -162,7 +171,8 @@ function Register() {
     </div>
   </div>
 </section>
-
+</>
+      )}
   </div>
   )
 }
