@@ -23,7 +23,7 @@ function Account() {
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const res = await axios.get(`http://localhost:5000/user/${uid}`);
+                const res = await axios.get(`${process.env.REACT_APP_API_URL}user/${uid}`);
                 setUser(res.data);
                 setLoading(false);
             } catch (err) {
@@ -71,7 +71,7 @@ function Account() {
                                         <span className="font-bold">Réservations</span>
                                     </Link>
                                 </div>
-                                <div className="flex justify-between">
+                                <div className="flex flex-col sm:flex-row justify-between">
                                     <p className="flex items-center flex-col text-gray-500 rounded transition duration-150 ease-in font-medium text-sm text-center w-full py-3">
                                         <IoIosMail className="w-4 h-4 mx-3" />
                                         {user.email}
@@ -80,17 +80,18 @@ function Account() {
                                         <FaPhoneAlt className="w-4 h-4 mx-3" />
                                         +221 {user.telephone}
                                     </p>
-                                    <Link to="/accountsetting" className="flex items-center flex-col text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded transition duration-150 ease-in font-medium text-sm text-center w-full py-3">
+                                    <Link to="/accountsetting" className="flex items-center flex-col text-gray-500 hover:text-blue focus:text-blue hover:bg-gray-100 rounded transition duration-150 ease-in font-medium text-sm text-center w-full py-3">
                                         <IoMdSettings className="w-4 h-4 mx-3" />
                                         Paramètre
                                     </Link>
                                     {user.role === "business" ? (
-                                        <Link to="/addcar" className="flex items-center flex-col text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded transition duration-150 ease-in font-medium text-sm text-center w-full py-3">
+                                        <Link to="/addcar" className="flex items-center flex-col text-gray-500 hover:text-blue focus:text-blue hover:bg-gray-100 rounded transition duration-150 ease-in font-medium text-sm text-center w-full py-3">
                                             <FaCarAlt className="w-4 h-4 mx-3" />
                                             +Location
                                         </Link>
                                     ) : null}
                                 </div>
+
                                 <div className="w-full">
                                     {/*<h3 className="font-medium text-gray-900 text-left px-6">
                                         Recent activites

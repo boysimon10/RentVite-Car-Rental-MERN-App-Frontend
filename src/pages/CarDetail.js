@@ -26,7 +26,7 @@ const CarDetail = () => {
   useEffect(() => {
     const fetchCar = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/car/${id}`);
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}car/${id}`);
         setCar(response.data);
         setLoading(false);
       } catch (error) {
@@ -83,7 +83,7 @@ const CarDetail = () => {
         return;
       }
 
-      const response = await axios.post('http://localhost:5000/booking', {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}booking`, {
           user: uid, // Utilisation de l'userId du contexte utilisateur
           car: car._id,
           dateDebut: startDate,
@@ -117,62 +117,86 @@ const CarDetail = () => {
         <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
         {car.marque} {car.modele}
         </h1>
-        <div className="flex mb-4 mt-4">
+        
+
+              <div className="flex flex-wrap mb-4 mt-4">
+          <div className="w-full md:w-1/2">
               <span className="flex items-center">
-              <span className="mr-2">
-                  <LuFuel className="bg-gray-light" />
+                  <span className="mr-2">
+                      <LuFuel className="bg-gray-light" />
+                  </span>
+                  <span className="mr-6">{car.typeCarburant}</span>
               </span>
-              <span className="mr-6">{car.typeCarburant}</span>
-              <span className="mr-2">
-                  <FaWheelchair />
+          </div>
+          <div className="w-full md:w-1/2">
+              <span className="flex items-center">
+                  <span className="mr-2">
+                      <FaWheelchair />
+                  </span>
+                  <span className="mr-6">{car.transmission}</span>
               </span>
-              <span className="mr-6">{car.transmission}</span>
-              <span className="mr-2">
-              <MdOutlineReduceCapacity />
+          </div>
+          <div className="w-full md:w-1/2">
+              <span className="flex items-center">
+                  <span className="mr-2">
+                      <MdOutlineReduceCapacity />
+                  </span>
+                  <span className='mr-6'>{car.capaciteAccueil}</span>
               </span>
-        <span className='mr-6'>{car.capaciteAccueil}</span>
-        <span className="mr-2">
-              <IoLocation />
+          </div>
+          <div className="w-full md:w-1/2">
+              <span className="flex items-center">
+                  <span className="mr-2">
+                      <IoLocation />
+                  </span>
+                  <span>{car.lieuPriseEnCharge}</span>
               </span>
-        <span>{car.lieuPriseEnCharge}</span>
-        </span>
-        </div>
+          </div>
+      </div>
         <p className="leading-relaxed">
         {car.description}
         </p>
       <form onSubmit={handleBookCar}>
-        <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-200 mb-5">
-        
-          <div className="flex ml-0 items-center">
-            <span className="mr-3">De</span>
-            <div className="relative">
-              <input type="date"
-                className='rounded border appearance-none  py-2 focus:outline-none border-blue text-base pl-3 pr-2'
-                id="start" name="start" value={startDate} min={currentDate} onChange={(e) => handleStartDateChange(e.target.value)} />
-            </div>
-            <span className="mr-3 ml-4">à</span>
-            <div className="relative">
-              <input type="date"
-                className='rounded border appearance-none py-2 focus:outline-none border-blue text-base pl-3 pr-2'
-                id="end" name="end" value={endDate} min={currentDate} onChange={(e) => handleEndDateChange(e.target.value)} />
-            </div>
-            
+
+
+      <div className="flex flex-col mt-6  pb-5 border-b-2 border-gray-200 mb-5">
+          <div className="flex flex-col sm:flex-row ">
+              <span className="mr-3 mb-2 sm:mb-0">Du</span>
+              <div className="relative">
+                  <input
+                      type="date"
+                      className='rounded border appearance-none py-2 focus:outline-none border-blue text-base pl-3 pr-2'
+                      id="start" name="start" value={startDate} min={currentDate} onChange={(e) => handleStartDateChange(e.target.value)}
+                  />
+              </div>
+              <span className="mr-3 ml-4 mb-2 sm:mb-0">au</span>
+              <div className="relative">
+                  <input
+                      type="date"
+                      className='rounded border appearance-none py-2 focus:outline-none border-blue text-base pl-3 pr-2'
+                      id="end" name="end" value={endDate} min={currentDate} onChange={(e) => handleEndDateChange(e.target.value)}
+                  />
+              </div>
           </div>
-        </div>
-        <div className="flex">
-          <span className="title-font font-medium text-xl text-gray-900">
-          {car.tarifs}/Jour - <span className='text-blue'>Prix total:</span> {totalPrice} FCFA
-          </span>
-          {uid ? (
-          <button type="submit" className="flex ml-auto text-white bg-blue border-0 py-2 px-6 focus:outline-none hover:bg-blue-light rounded">
-            Reserver
-          </button>
-            ) : (
-            <Link to="/login">
-            <button type="submit" className="flex ml-auto text-white bg-blue border-0 py-2 px-6 focus:outline-none hover:bg-blue-light rounded">
-            Se connecter pour reserver
-          </button></Link>
-          )}
+      </div>
+
+      <div className="flex flex-col sm:flex-row">
+    <span className="title-font font-medium text-xl text-gray-900">
+        {car.tarifs}/Jour - <span className='text-blue'>Prix total:</span> {totalPrice} FCFA
+    </span>
+    {uid ? (
+        <button type="submit" className="flex ml-auto text-white bg-blue border-0 py-2 px-6 focus:outline-none hover:bg-blue-light rounded">
+            Réserver
+        </button>
+    ) : (
+        <Link to="/login">
+            <button className="flex ml-auto text-white bg-blue border-0 py-2 px-6 focus:outline-none hover:bg-blue-light rounded">
+                Se connecter pour réserver
+            </button>
+        </Link>
+    )}
+
+
           {/*
           <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
             <svg

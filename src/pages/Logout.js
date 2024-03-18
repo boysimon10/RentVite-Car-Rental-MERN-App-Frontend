@@ -5,7 +5,7 @@ import axios from 'axios';
 const Logout = () => {
     const handleLogout = async () => {
         try {
-            await axios.get('http://localhost:5000/user/logout', { withCredentials: true });
+            await axios.get(`${process.env.REACT_APP_API_URL}user/logout`, { withCredentials: true });
             Cookies.remove('token');
             window.location.href = '/';
         } catch (error) {

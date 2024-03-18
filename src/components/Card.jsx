@@ -14,10 +14,10 @@ const Card = ({ car }) => (
         </div>
         <div className="absolute bottom-0 mb-3 flex justify-center">
         </div>
-        <span className="absolute left-0 top-0 z-10 ml-3 mt-3 inline-flex select-none rounded-lg bg-blue-light px-3 py-2 text-sm font-medium text-white">
-          {" "}
-          Disponible{" "}
-        </span>
+        {/*<span className="absolute left-0 top-0 z-10 ml-3 mt-3 inline-flex select-none rounded-lg bg-blue-light px-3 py-2 text-sm font-medium text-white">
+          
+          Disponible
+        </span>*/}
       </div>
       <div className="">
         <div className="mt-4 grid grid-cols-2">
@@ -48,14 +48,14 @@ const Card = ({ car }) => (
         <div className="mt-2 grid grid-cols-2  gap-4 border-b border-t border-gray-200 pb-3 pt-3">
           <p className="flex items-center text-gray-800 xl:flex-row xl:items-center">
         <svg xmlns="http://www.w3.org/2000/svg"
-         fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"
+          fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"
           className="mr-3 w-5 h-5 fill-current text-gray-800 xl:h-4 xl:w-4">
             <path strokeLinecap="round" strokeLinejoin="round" d="M6 13.5V3.75m0 9.75a1.5 1.5 0 0 1 0 3m0-3a1.5 1.5 0 0 0 0 3m0 3.75V16.5m12-3V3.75m0 9.75a1.5 1.5 0 0 1 0 3m0-3a1.5 1.5 0 0 0 0 3m0 3.75V16.5m-6-9V3.75m0 3.75a1.5 1.5 0 0 1 0 3m0-3a1.5 1.5 0 0 0 0 3m0 9.75V10.5" />
         </svg>
             <span className="xl:mt-0"> {car.transmission} </span>
           </p>
           <p className="flex items-center text-gray-800 xl:flex-row xl:items-center">
-             <svg 
+            <svg 
           xmlns="http://www.w3.org/2000/svg" 
           fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" 
           className="mr-3 w-5 h-5 fill-current text-gray-800 xl:h-4 xl:w-4">

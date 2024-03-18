@@ -17,7 +17,7 @@ function AccountSet() {
 
     const fetchUser = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/user/${uid}`);
+        const res = await axios.get(`${process.env.REACT_APP_API_URL}user/${uid}`);
         setUser(res.data);
         setLoading(false)
       } catch (err) {
@@ -46,7 +46,7 @@ function AccountSet() {
     formData.append('profilePicture', file);
 
     try {
-      await axios.put(`http://localhost:5000/user/${uid}/profile-picture`, formData, {
+      await axios.put(`${process.env.REACT_APP_API_URL}user/${uid}/profile-picture`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -75,7 +75,7 @@ const toggleRole = async () => {
     }
 
     if (user.role === 'client') {
-      await axios.put(`http://localhost:5000/user/${user._id}`, { role: 'business' });
+      await axios.put(`${process.env.REACT_APP_API_URL}user/${user._id}`, { role: 'business' });
       setIsRoleBusiness(true);
     }
   } catch (error) {
@@ -101,7 +101,7 @@ if (loading) {
     {user ? (
       <>
       <Navbar />
-      <section className="bg-white flex justify-center items-center mx-[120px]">
+      <section className="bg-white flex justify-center items-center md:mx-[120px] lg:mx-[120px]">
         <div className="container px-6 py-24 mx-auto lg:py-12">
           <div className="lg:flex">
             <div className="lg:w-1/2">

@@ -13,7 +13,7 @@ function Bookings() {
         axios.defaults.withCredentials = true;
         const fetchBookings = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/booking/');
+                const response = await axios.get(`${process.env.REACT_APP_API_URL}booking/`);
                 setBookings(response.data);
             } catch (error) {
                 console.error('Error fetching bookings:', error);
@@ -24,7 +24,7 @@ function Bookings() {
     }, []);
 
     const handleAcceptBooking = (id) => {
-        axios.put(`http://localhost:5000/booking/${id}/confirm`, { statut: 'acceptée' }).then((response) => {
+        axios.put(`${process.env.REACT_APP_API_URL}booking/${id}/confirm`, { statut: 'acceptée' }).then((response) => {
           // Mise à jour de l'état local avec la réservation mise à jour
             setBookings((prevBookings) =>
                 prevBookings.map((booking) =>
@@ -36,7 +36,7 @@ function Bookings() {
     };
 
     const handleRejectBooking = (id) => {
-        axios.put(`http://localhost:5000/booking/${id}/confirm`, { statut: 'refusée' }).then((response) => {
+        axios.put(`${process.env.REACT_APP_API_URL}booking/${id}/confirm`, { statut: 'refusée' }).then((response) => {
           // Mise à jour de l'état local avec la réservation mise à jour
             setBookings((prevBookings) =>
                 prevBookings.map((booking) =>

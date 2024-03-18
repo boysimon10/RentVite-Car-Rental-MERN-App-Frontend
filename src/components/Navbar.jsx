@@ -1,14 +1,19 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { UidContext } from '../UseContext';
 
-
 function Navbar() {
   const uid = useContext(UidContext);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
     <div className="container mx-auto">
       <div className="bg-white">
-        <header className="mb-8 mx-[100px]">
+        <header className="mb-8 md:mx-[100px] lg:mx-[100px]">
           <div className="mx-auto flex max-w-screen-2xl items-center justify-between px-4 md:px-8">
             {/* logo - start */}
             <Link
@@ -24,8 +29,8 @@ function Navbar() {
               />
             </Link>
             {/* logo - end */}
-            {/* nav - start */}
-            <nav className="hidden gap-12 lg:flex 2xl:ml-16">
+            {/* nav - start responsive super mal gerer pitié*/}
+            <nav className={`gap-12 lg:flex 2xl:ml-16 ${isMenuOpen ? 'flex flex-col bg-white mx-4 my-4' : 'hidden'}`}>
               <Link to="/" className="text-base font-semibold text-gray-600 transition duration-100 hover:text-blue active:text-blue">
                 Home
               </Link>
@@ -124,6 +129,7 @@ function Navbar() {
               <button
                 type="button"
                 className="flex h-12 w-12 flex-col items-center justify-center gap-1.5 transition duration-100 hover:bg-gray-100 active:bg-gray-200 sm:h-20 sm:w-20 md:h-24 md:w-24 lg:hidden"
+                onClick={toggleMenu}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -137,7 +143,7 @@ function Navbar() {
                     clipRule="evenodd"
                   />
                 </svg>
-                <span className="hidden text-xs font-semibold text-gray-500 sm:block">
+                <span className={`hidden text-xs font-semibold text-gray-500 sm:block`}>
                   Menu
                 </span>
               </button>

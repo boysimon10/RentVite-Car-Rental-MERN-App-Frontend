@@ -2,8 +2,8 @@ import React from 'react'
 
 function Content() {
     return (
-        <div className="bg-white-0 py-28 sm:py-8 lg:py-16 ">
-    <div className="mx-[90px] max-w-screen-xl px-4 md:px-8">
+        <div className="bg-white-0 py-28 sm:py-8 lg:py-16 my-16">
+    <div className="md:mx-[90px] lg:mx-[90px] max-w-screen-xl px-4 md:px-8">
         <div className="grid gap-8 md:grid-cols-2 lg:gap-12">
         <div>
             <div className="h-64 overflow-hidden rounded-lg bg-gray-100 shadow-lg md:h-auto">

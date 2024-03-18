@@ -12,6 +12,7 @@ import axios from "axios";
 import { UidContext } from "./UseContext";
 import CarDetail from './pages/CarDetail';
 import Bookings from './pages/Bookings';
+import Error from './pages/Error';
 
 
 function App() {
@@ -21,7 +22,7 @@ function App() {
     const fetchToken = async () => {
       await axios({
         method: "get",
-        url: `http://localhost:5000/authenticated`,
+        url: `${process.env.REACT_APP_API_URL}authenticated`,
         withCredentials: true,
       })
         .then((res) => {
@@ -46,6 +47,7 @@ function App() {
       <Route path="/addcar" element={<AddCar />} />
       <Route path="/cardetail/:id" element={<CarDetail />} />
       <Route path="/bookings/" element={<Bookings />} />
+      <Route path="*" element={<Error />} />
     </Routes>
     </UidContext.Provider>
   );

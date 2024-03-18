@@ -36,7 +36,7 @@ function AddCar() {
 
     const fetchUser = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/user/${uid}`);
+        const res = await axios.get(`${process.env.REACT_APP_API_URL}user/${uid}`);
         setUser(res.data);
         setLoading(false)
       } catch (err) {
@@ -74,7 +74,7 @@ function AddCar() {
             userId: uid,
         };
         
-        const response = await axios.post("http://localhost:5000/car/addcar", data, {
+        const response = await axios.post(`${process.env.REACT_APP_API_URL}car/addcar`, data, {
             headers: {
                 "Content-Type": "application/json",
             },
@@ -98,7 +98,7 @@ function AddCar() {
     {user.role === 'business' ? (
       <>
         <Navbar />
-        <section className="bg-white-0 flex justify-center items-center mx-[120px]">
+        <section className="bg-white-0 flex justify-center items-center md:mx-[120px] lg:mx-[120px]">
         <div className="container px-6 py-24 mx-auto lg:py-12">
           <div className="lg:flex">
             <div className="lg:w-1/2">
@@ -132,7 +132,7 @@ function AddCar() {
                   <MdAttachMoney className='w-6 h-6 mx-3 text-gray-300'/>
                   </span>
                   <input 
-                  type="number" 
+                  type="number" min='0'
                   className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" 
                   placeholder="Tarifs par jour"
                   onChange={(e) => setTarifs(e.target.value)} value={tarifs} />
@@ -148,6 +148,7 @@ function AddCar() {
                   <option value="Diesel">Diesel</option>
                   <option value="Electrique">Électrique</option>
                   <option value="Hybride">Hybride</option>
+                  <option value="Manuelle">Gazoil</option>
                 </select>
               </div>
               <div className={`relative flex items-center mt-4`}>
@@ -160,7 +161,7 @@ function AddCar() {
                   <option value="">Type de transmission</option>
                   <option value="Automatique">Automatique</option>
                   <option value="Manuelle">Manuelle</option>
-                  <option value="Manuelle">Gazoil</option>
+                  
                 </select>
               </div>
               <div className={`relative flex items-center mt-4`}>

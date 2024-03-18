@@ -5,10 +5,9 @@ import CardList from './CardList';
 function Trend() {
     const [cars, setCars] = useState([]);
     useEffect(() => {
-        axios.get('http://localhost:5000/car/')
+        axios.get(`${process.env.REACT_APP_API_URL}car/`)
             .then(response => {
                 setCars(response.data);
-                 
             })
             .catch(error => {
                 console.error(error);
@@ -16,12 +15,12 @@ function Trend() {
     }, []);
   return (
     <>
-      <div className='mx-[130px]'>
+      <div className='md:mx-[130px] lg:mx-[130px]'>
                 <p className="mb-4 text-4xl font-bold text-blue sm:text-5xs md:mb-8 md:text-6x">
                 Tendances
                 </p>
                 </div>
-                <CardList cars={cars.slice(0, 5)} />
+                <CardList cars={cars.slice(0, 8)} />
     </>
   )
 }

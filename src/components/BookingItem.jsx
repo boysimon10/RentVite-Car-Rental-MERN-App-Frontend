@@ -3,6 +3,10 @@ import { UidContext } from '../UseContext';
 
 function BookingItem({ booking, onAcceptBooking, onRejectBooking }) {
     const uid = useContext(UidContext);
+    
+    const strUcFirst = (string) => {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    };// simple fonction qui Met en majuscule le premier lettre
 
     const handleAccept = () => {
         onAcceptBooking(booking._id); 
@@ -15,7 +19,7 @@ function BookingItem({ booking, onAcceptBooking, onRejectBooking }) {
     const renderButtons = () => {
         if (uid === booking.user?._id) {
             return (
-                <p>Statut: <span className='text-blue text-bold'>{booking.statut}</span></p>
+                <p>Statut: <span className='text-blue text-bold'>{strUcFirst(booking.statut)}</span></p>
             );
         } else if (uid === booking.car.proprietaire._id) {
             if (booking.statut === "en attente") {
@@ -27,7 +31,7 @@ function BookingItem({ booking, onAcceptBooking, onRejectBooking }) {
                 );
             } else {
                 return (
-                    <p>Statut: <span className='text-blue text-bold'>{booking.statut}</span></p>
+                    <p>Statut: <span className='text-blue text-bold'>{strUcFirst(booking.statut)}</span></p>
                 );
             }
         }

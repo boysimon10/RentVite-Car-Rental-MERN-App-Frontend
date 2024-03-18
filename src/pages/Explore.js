@@ -9,7 +9,7 @@ const Explore = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-      axios.get('http://localhost:5000/car/')
+      axios.get(`${process.env.REACT_APP_API_URL}car/`)
           .then(response => {
               setCars(response.data);
               setLoading(false); // Arrête le chargement une fois les données chargées

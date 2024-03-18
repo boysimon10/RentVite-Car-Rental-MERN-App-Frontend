@@ -19,7 +19,7 @@ function Login() {
     setPasswordError("");
 
     try {
-      const response = await axios.post("http://localhost:5000/user/login", {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}user/login`, {
         email,
         password,
       }, {
@@ -54,7 +54,7 @@ function Login() {
         ) : (
           <>
       <Navbar />
-      <section className="bg-white flex justify-center items-center mx-[120px]">
+      <section className="bg-white flex justify-center items-center md:mx-[120px] lg:mx-[120px]">
         <div className="container px-6 py-24 mx-auto lg:py-12">
           <div className="lg:flex">
             <div className="lg:w-1/2">
