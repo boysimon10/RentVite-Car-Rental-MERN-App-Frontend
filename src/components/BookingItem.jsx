@@ -15,7 +15,7 @@ function BookingItem({ booking, onAcceptBooking, onRejectBooking }) {
     const renderButtons = () => {
         if (uid === booking.user?._id) {
             return (
-                <p>Statut: {booking.statut}</p>
+                <p>Statut: <span className='text-blue text-bold'>{booking.statut}</span></p>
             );
         } else if (uid === booking.car.proprietaire._id) {
             if (booking.statut === "en attente") {
@@ -27,14 +27,14 @@ function BookingItem({ booking, onAcceptBooking, onRejectBooking }) {
                 );
             } else {
                 return (
-                    <p>Statut: {booking.statut}</p>
+                    <p>Statut: <span className='text-blue text-bold'>{booking.statut}</span></p>
                 );
             }
         }
         // Retourne null si l'ID de l'utilisateur n'est pas lié à un cas spécifié
         return null;
     };
-  
+
     // Retourne null si l'ID de l'utilisateur n'est pas lié à un cas spécifié
     if (!uid || (uid !== booking.user?._id && uid !== booking.car.proprietaire._id)) {
         return null;
@@ -52,8 +52,9 @@ function BookingItem({ booking, onAcceptBooking, onRejectBooking }) {
                     <div className="mt-5 sm:mt-0">
                         <h2 className="text-lg font-bold text-gray-900">{booking.car?.marque} {booking.car?.modele}</h2>
                         <p className="mt-1 text-sm text-gray-900">Du {new Date(booking.dateDebut).toLocaleDateString()} au {new Date(booking.dateFin).toLocaleDateString()}</p>
-                        <p className="mt-1 text-xs text-gray-900">Reservation faite par <span className='underline'>{booking.user?.nom}</span></p>
-                        <p className="mt-1 text-xs text-gray-900">Date de Reservation: <span className='underline'>{new Date(booking.dateReservation).toLocaleDateString()}</span></p>
+                        <p className="mt-1 text-xs text-gray-900">Reservation faite par <span className={uid === booking.user?._id ? 'text-green-500 underline' : 'text-blue'}>{uid === booking.user?._id ? 'Vous' : booking.user?.nom}</span></p>
+                        <p className="mt-1 text-xs text-gray-900">Voiture de <span className="text-blue">{booking.car.proprietaire.nom}</span></p>
+                        <p className="mt-1 text-xs text-gray-900">Date de Reservation: <span className='text-blue'>{new Date(booking.dateReservation).toLocaleDateString()}</span></p>
                     </div>
                     <div className="mt-4 flex justify-between sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">
                         <div className="flex items-center border-gray-100">

@@ -24,29 +24,29 @@ function Bookings() {
     }, []);
 
     const handleAcceptBooking = (id) => {
-      axios.put(`http://localhost:5000/booking/${id}/confirm`, { statut: 'acceptée' }).then((response) => {
+        axios.put(`http://localhost:5000/booking/${id}/confirm`, { statut: 'acceptée' }).then((response) => {
           // Mise à jour de l'état local avec la réservation mise à jour
-          setBookings((prevBookings) =>
-              prevBookings.map((booking) =>
-                  booking.id === id ? { ...booking, statut: response.data.statut } : booking
-              )
-          );
+            setBookings((prevBookings) =>
+                prevBookings.map((booking) =>
+                    booking.id === id ? { ...booking, statut: response.data.statut } : booking
+                )
+            );
           window.location.reload(); // Rechargement de la page
-      });
-  };
-  
-  const handleRejectBooking = (id) => {
-      axios.put(`http://localhost:5000/booking/${id}/confirm`, { statut: 'refusée' }).then((response) => {
+        });
+    };
+
+    const handleRejectBooking = (id) => {
+        axios.put(`http://localhost:5000/booking/${id}/confirm`, { statut: 'refusée' }).then((response) => {
           // Mise à jour de l'état local avec la réservation mise à jour
-          setBookings((prevBookings) =>
-              prevBookings.map((booking) =>
-                  booking.id === id ? { ...booking, statut: response.data.statut } : booking
-              )
-          );
-          window.location.reload(); // Rechargement de la page
-      });
-  };
-  
+            setBookings((prevBookings) =>
+                prevBookings.map((booking) =>
+                    booking.id === id ? { ...booking, statut: response.data.statut } : booking
+                )
+            );
+            window.location.reload(); // Rechargement de la page
+        });
+};
+
 
     return (
         <>

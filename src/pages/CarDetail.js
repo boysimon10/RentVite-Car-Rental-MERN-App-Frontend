@@ -160,14 +160,14 @@ const CarDetail = () => {
           </div>
         </div>
         <div className="flex">
-          <span className="title-font font-medium text-2xl text-gray-900">
-          {car.tarifs}/Jour - Prix total: {totalPrice} FCFA
+          <span className="title-font font-medium text-xl text-gray-900">
+          {car.tarifs}/Jour - <span className='text-blue'>Prix total:</span> {totalPrice} FCFA
           </span>
           {uid ? (
           <button type="submit" className="flex ml-auto text-white bg-blue border-0 py-2 px-6 focus:outline-none hover:bg-blue-light rounded">
             Reserver
           </button>
-           ) : (
+            ) : (
             <Link to="/login">
             <button type="submit" className="flex ml-auto text-white bg-blue border-0 py-2 px-6 focus:outline-none hover:bg-blue-light rounded">
             Se connecter pour reserver

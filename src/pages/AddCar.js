@@ -1,7 +1,9 @@
 
 import Navbar from '../components/Navbar';
+import Loading from '../components/Loading';
+import Error from './Error';
 import axios from "axios";
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { UidContext } from '../UseContext';
 import { FaCar } from "react-icons/fa";
 import { FaCarBattery } from "react-icons/fa";
@@ -15,6 +17,9 @@ import { MdAttachMoney } from "react-icons/md";
 function AddCar() {
   axios.defaults.withCredentials = true;
   const uid = useContext(UidContext);
+  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null)
+
   const [marque, setMarque] = useState("");
   const [modele, setModele] = useState("");
   const [tarifs, setTarifs] = useState("");
@@ -23,8 +28,35 @@ function AddCar() {
   const [transmission, setTransmission] = useState("");
   const [capaciteAccueil, setCapaciteAccueil] = useState("");
   const [description, setDescription] = useState("");
-  // const [photos,setPhotos] = useState('');
+  const [photos,setPhotos] = useState('');
   
+  //verification si la personne a un compte business
+  useEffect(() => {
+    if (!uid) return;
+
+    const fetchUser = async () => {
+      try {
+        const res = await axios.get(`http://localhost:5000/user/${uid}`);
+        setUser(res.data);
+        setLoading(false)
+      } catch (err) {
+        console.error('Erreur lors de la récupération des informations de l\'utilisateur :', err);
+        setLoading(false)
+      }
+    };
+
+    fetchUser();
+  }, [uid]);
+  if (loading) {
+    return (
+      <>
+          <Navbar />
+          <Loading />
+      </>
+    );
+  } 
+
+  //addcar
   const handleAddCar = async (e) => {
     e.preventDefault();
 
@@ -38,6 +70,7 @@ function AddCar() {
             transmission,
             capaciteAccueil,
             description,
+            photos,
             userId: uid,
         };
         
@@ -47,9 +80,11 @@ function AddCar() {
             },
         });
         console.log(response.data);
+        window.location = "/account";
         // Ajouter une redirection ou un message de succès ici
     } catch (error) {
         console.error(error);
+        alert('erreur')
         // Afficher un message d'erreur ici
     }
   };
@@ -60,6 +95,8 @@ function AddCar() {
   // };
   return (
     <>
+    {user.role === 'business' ? (
+      <>
         <Navbar />
         <section className="bg-white-0 flex justify-center items-center mx-[120px]">
         <div className="container px-6 py-24 mx-auto lg:py-12">
@@ -123,6 +160,7 @@ function AddCar() {
                   <option value="">Type de transmission</option>
                   <option value="Automatique">Automatique</option>
                   <option value="Manuelle">Manuelle</option>
+                  <option value="Manuelle">Gazoil</option>
                 </select>
               </div>
               <div className={`relative flex items-center mt-4`}>
@@ -130,7 +168,7 @@ function AddCar() {
                 <MdOutlineReduceCapacity className='w-6 h-6 mx-3 text-gray-300'/>
                 </span>
                 <input type="number"
-                 className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" 
+                className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" 
                 placeholder="Capacité d'accueil"
                 min="0"
                 max="6"
@@ -148,8 +186,9 @@ function AddCar() {
               </div>
               <div className={`relative flex items-center mt-4`}>
               <div className="w-full mx-auto">
-                <label className="text-sm text-black mb-2 block">Upload Photos</label>
-                <input
+                <label className="text-sm text-black mb-2 block">Upload Photos (en cours de développement)</label>
+                <label className='text-sm text-red-600 mb-2 block'>Mettre le lien de l'image correpondant au modele de la voiture</label>
+                {/*  <input
                   type="file"
                   multiple
                   accept=".png, .jpg, .jpeg"
@@ -158,9 +197,15 @@ function AddCar() {
                 />
                 <p className="text-xs text-gray-400 mt-2">
                   PNG and JPG are Allowed.
-                </p>
+                </p>*/}
+                <div className={`relative flex items-center `}>
+                <span className="absolute">
+                  <FaCar className='w-6 h-6 mx-3 text-gray-300'/>
+                  </span>
+                <input type="text" className="block w-full py-3 text-gray-dark bg-white border rounded-lg px-11 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                placeholder="Lien de L'image" onChange={(e) => setPhotos(e.target.value)} value={photos} />
               </div>
-
+              </div>
               </div>
                 <div className="mt-4 md:flex md:items-center">
                   <button type="submit" className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue rounded-lg md:w-1/2 hover:bg-blue-light focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50"> Ajouter </button>
@@ -171,6 +216,12 @@ function AddCar() {
           </div>
         </div>
       </section>
+      </>
+      ) : (
+        <>
+          <Error />
+        </>
+        )}
     </>
   )
 }
