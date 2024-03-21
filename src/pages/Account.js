@@ -23,9 +23,19 @@ function Account() {
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const res = await axios.get(`${process.env.REACT_APP_API_URL}user/${uid}`);
-                setUser(res.data);
-                setLoading(false);
+                const token = localStorage.getItem('token');
+                const config = {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                };
+                const res = await axios.get(`${process.env.REACT_APP_API_URL}user/${uid}`, config);
+                if (res.data) {
+                    setUser(res.data);
+                    setLoading(false);
+                } else {
+                    setLoading(false);
+                }
             } catch (err) {
                 console.error('Erreur lors de la récupération des informations de l\'utilisateur :', err);
                 setLoading(false); 
@@ -35,6 +45,7 @@ function Account() {
             fetchUser();
         }
     }, [uid]);
+    
 
     return (
         <div>
