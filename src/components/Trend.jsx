@@ -16,7 +16,7 @@ function Trend() {
   return (
     <>
       <div className='md:mx-[130px] lg:mx-[130px]'>
-                <p className="mb-4 text-4xl font-bold text-blue sm:text-5xs md:mb-8 md:text-6x">
+                <p className="mt-5 ml-5 text-4xl font-bold text-blue sm:text-5xs md:mb-8 md:text-6x">
                 Tendances
                 </p>
                 </div>

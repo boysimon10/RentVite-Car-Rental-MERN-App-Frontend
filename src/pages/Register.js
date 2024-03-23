@@ -19,6 +19,13 @@ function Register() {
     setEmailError("");
     setPhoneError("");
 
+    const phoneRegex = /^\+[0-9]+$/;
+
+    if (!phoneRegex.test(telephone)) {
+      setPhoneError("Numéro de téléphone invalide");
+      return;
+    }
+
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_API_URL}user/register`,

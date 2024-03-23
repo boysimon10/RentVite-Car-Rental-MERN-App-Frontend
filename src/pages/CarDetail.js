@@ -93,6 +93,16 @@ const CarDetail = () => {
         return;
       }
 
+      if (startDate === endDate) {
+      alert("La date de fin ne peut pas être la même que la date de début.");
+      throw new Error("La date de fin ne peut pas être la même que la date de début.");
+    }
+
+    if (new Date(startDate) > new Date(endDate)) {
+      alert("La date de fin doit être ultérieure à la date de début.")
+      throw new Error("La date de fin doit être ultérieure à la date de début.");
+    }
+
       const response = await axios.post(
         `${process.env.REACT_APP_API_URL}booking`,
         {
@@ -204,13 +214,13 @@ const CarDetail = () => {
                   {uid ? (
                     <button
                       type="submit"
-                      className="flex ml-auto text-white bg-blue border-0 py-2 px-6 focus:outline-none hover:bg-blue-light rounded"
+                      className="flex text-white bg-blue border-0 py-2 px-6 focus:outline-none hover:bg-blue-light rounded ml-2"
                     >
                       Réserver
                     </button>
                   ) : (
                     <Link to="/login">
-                      <button className="flex ml-auto text-white bg-blue border-0 py-2 px-6 focus:outline-none hover:bg-blue-light rounded">
+                      <button className="flex text-white bg-blue border-0 py-2 px-6 focus:outline-none hover:bg-blue-light rounded ml-2">
                         Se connecter pour réserver
                       </button>
                     </Link>
