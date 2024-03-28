@@ -1,6 +1,6 @@
 import React from 'react'
 
-function CarStet() {
+function CarSet() {
   return (
     <div>
       
@@ -8,4 +8,4 @@ function CarStet() {
   )
 }
 
-export default CarStet;
+export default CarSet;

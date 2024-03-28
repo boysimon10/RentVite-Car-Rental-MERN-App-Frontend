@@ -68,9 +68,14 @@ const CarDetail = () => {
       const days = Math.ceil(
         (new Date(end) - new Date(start)) / (1000 * 60 * 60 * 24)
       );
-      setTotalPrice(days * car.tarifs);
+      if (days > 0) {
+        setTotalPrice(days * car.tarifs);
+      } else {
+        setTotalPrice("-");
+      }
     }
   };
+  
 
   const handleBookCar = async (e) => {
     e.preventDefault();
@@ -99,7 +104,7 @@ const CarDetail = () => {
     }
 
     if (new Date(startDate) > new Date(endDate)) {
-      alert("La date de fin doit être ultérieure à la date de début.")
+      alert("Veuillez sélectionner des dates valides.")
       throw new Error("La date de fin doit être ultérieure à la date de début.");
     }
 

@@ -171,7 +171,7 @@ function Register() {
                       <input
                         type="tel"
                         className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg  focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
-                        placeholder="Telephone"
+                        placeholder="+22177XXXXXXX (Indicatif + Numéro)"
                         onChange={(e) => setTelephone(e.target.value)}
                         value={telephone}
                       />

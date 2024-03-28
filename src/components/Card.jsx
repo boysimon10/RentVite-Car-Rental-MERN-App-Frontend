@@ -25,7 +25,7 @@ const Card = ({ car }) => (
             <div className="relative">
               <h2
                 className="line-clamp-1 text-base font-medium text-gray-800 md:text-lg"
-                title="New York"
+                title={car.marque + ' ' + car.modele}
               >
                 {car.marque} {car.modele}
               </h2>
