@@ -13,6 +13,7 @@ import { UidContext } from "./UseContext";
 import CarDetail from './pages/CarDetail';
 import Bookings from './pages/Bookings';
 import Error from './pages/Error';
+import CarSet from './pages/CarSet';
 
 
 function App() {
@@ -59,6 +60,7 @@ function App() {
         <Route path="/addcar" element={<AddCar />} />
         <Route path="/cardetail/:id" element={<CarDetail />} />
         <Route path="/bookings/" element={<Bookings />} />
+        <Route path="/carset/" element={<CarSet />} />
         <Route path="*" element={<Error />} />
       </Routes>
     </UidContext.Provider>
