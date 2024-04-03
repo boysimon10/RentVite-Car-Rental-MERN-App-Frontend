@@ -60,7 +60,7 @@ function App() {
         <Route path="/addcar" element={<AddCar />} />
         <Route path="/cardetail/:id" element={<CarDetail />} />
         <Route path="/bookings/" element={<Bookings />} />
-        <Route path="/carset/" element={<CarSet />} />
+        <Route path="/carset/:id" element={<CarSet />} />
         <Route path="*" element={<Error />} />
       </Routes>
     </UidContext.Provider>

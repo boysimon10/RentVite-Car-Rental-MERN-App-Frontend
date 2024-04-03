@@ -42,7 +42,8 @@ function AddCar() {
           },
         };
         const res = await axios.get(
-          `${process.env.REACT_APP_API_URL}user/${uid}`,config
+          `${process.env.REACT_APP_API_URL}user/${uid}`,
+          config
         );
         setUser(res.data);
         setLoading(false);
@@ -106,7 +107,6 @@ function AddCar() {
       // Afficher un message d'erreur ici
     }
   };
-
 
   // const handlePhotoChange = (e) => {
   //     const files = e.target.files;
