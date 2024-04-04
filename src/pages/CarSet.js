@@ -5,7 +5,11 @@ import Navbar from "../components/Navbar";
 import { FaCar, FaCarBattery, FaWheelchair } from "react-icons/fa";
 import { IoLocation } from "react-icons/io5";
 import { LuFuel } from "react-icons/lu";
-import { MdOutlineReduceCapacity, MdOutlineDescription, MdAttachMoney } from "react-icons/md";
+import {
+  MdOutlineReduceCapacity,
+  MdOutlineDescription,
+  MdAttachMoney,
+} from "react-icons/md";
 import { UidContext } from "../UseContext";
 import Error from "./Error";
 
@@ -23,7 +27,6 @@ function CarSet() {
           `${process.env.REACT_APP_API_URL}car/${id}`
         );
         setCar(response.data);
-
       } catch (error) {
         console.error("Error fetching car:", error);
       }
@@ -31,6 +34,20 @@ function CarSet() {
 
     fetchCar();
   }, [id]);
+
+  function handleChange(e, field) {
+    setCar({ ...car, [field]: e.target.value });
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    axios
+      .put(`${process.env.REACT_APP_API_URL}car/${id}`, car)
+      .then((response) => {})
+      .catch((error) => {
+        console.error("Error updating car:", error);
+      });
+  }
 
   return (
     <>
@@ -41,10 +58,17 @@ function CarSet() {
             <div className="container px-6 py-24 mx-auto lg:py-12">
               <div className="lg:flex">
                 <div className="lg:w-1/2">
-                  <img src="./assets/carset.png" className="" alt="" />
+                  <img
+                    src={process.env.PUBLIC_URL + "/assets/carset.png"}
+                    className=""
+                    alt="carset"
+                  />
                 </div>
                 <div className="mt-8 lg:w-1/2 lg:mt-0">
-                  <form className="w-full lg:max-w-xl">
+                  <form
+                    className="w-full lg:max-w-xl"
+                    onSubmit={handleSubmit}
+                  >
                     <div className={`relative flex items-center `}>
                       <span className="absolute">
                         <FaCar className="w-6 h-6 mx-3 text-gray-300" />
@@ -54,6 +78,7 @@ function CarSet() {
                         className="block w-full py-3 text-gray-dark bg-white border rounded-lg px-11 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
                         placeholder="Marque (exemple: Toyota)"
                         value={car ? car.marque : ""}
+                        onChange={(e) => handleChange(e, "marque")}
                       />
                     </div>
                     <div className={`relative flex items-center mt-4`}>
@@ -64,6 +89,7 @@ function CarSet() {
                         type="text"
                         className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
                         placeholder="Modèle"
+                        onChange={(e) => handleChange(e, "modele")}
                       />
                     </div>
                     <div className={`relative flex items-center mt-4`}>
@@ -124,62 +150,63 @@ function CarSet() {
                     </div>
                     <div className={`relative flex items-center mt-4`}>
                       <span className="absolute">
-                        <MdOutlineDescription className="w-6 h-6 mx-3 text-gray-300" />
-                      </span>
-                      <textarea
-                        className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
-                        placeholder="Description"
-                      ></textarea>
-                    </div>
-                    <div className={`relative flex items-center mt-4`}>
-                      <div className="w-full mx-auto">
-                        <label className="text-sm text-black mb-2 block">
-                          Upload Photos (en cours de développement)
-                        </label>
-                        <label className="text-sm text-red-600 mb-2 block">
-                          Mettre le lien de l'image correpondant au modele de la
-                          voiture
-                        </label>
-                        <div className={`relative flex items-center `}>
-                          <span className="absolute">
-                            <FaCar className="w-6 h-6 mx-3 text-gray-300" />
-                          </span>
-                          <input
-                            type="text"
-                            className="block w-full py-3 text-gray-dark bg-white border rounded-lg px-11 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
-                            placeholder="Lien de L'image"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    <div className="mt-4 md:flex md:items-center">
-                      <button
-                        type="submit"
-                        className="w-full py-2 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue rounded-lg md:w-1/3 hover:bg-blue-light focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50"
-                      >
-                        Ajouter
-                      </button>
-                    </div>
-                    <div className="mt-4 md:flex md:items-center">
-                      <button
-                        className="w-full py-2 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-red-600 rounded-lg md:w-1/3 hover:bg-red-700 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50"
-                      >
-                        Supprimer la voiture
-                      </button>
-                    </div>
-                  </form>
+                    <MdOutlineDescription className="w-6 h-6 mx-3 text-gray-300" />
+                  </span>
+                  <textarea
+                    className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                    placeholder="Description"
+                  ></textarea>
                 </div>
-              </div>
+                <div className={`relative flex items-center mt-4`}>
+                  <div className="w-full mx-auto">
+                    <label className="text-sm text-black mb-2 block">
+                      Upload Photos (en cours de développement)
+                    </label>
+                    <label className="text-sm text-red-600 mb-2 block">
+                      Mettre le lien de l'image correpondant au modele de la
+                      voiture
+                    </label>
+                    <div className={`relative flex items-center `}>
+                      <span className="absolute">
+                        <FaCar className="w-6 h-6 mx-3 text-gray-300" />
+                      </span>
+                      <input
+                        type="text"
+                        className="block w-full py-3 text-gray-dark bg-white border rounded-lg px-11 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                        placeholder="Lien de L'image"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-4 md:flex md:items-center">
+                  <button
+                    type="submit"
+                    className="w-full py-2 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue rounded-lg md:w-1/3 hover:bg-blue-light focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50"
+                  >
+                    Ajouter
+                  </button>
+                </div>
+                <div className="mt-4 md:flex md:items-center">
+                  <button
+                    type="submit"
+                    className="w-full py-2 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-red-600 rounded-lg md:w-1/3 hover:bg-red-700 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50"
+                  >
+                    Supprimer la voiture
+                  </button>
+                </div>
+              </form>
             </div>
-          </section>
-        </>
-      ) : (
-        <>
-          <Error />
-        </>
-      )}
+          </div>
+        </div>
+      </section>
     </>
-  );
+  ) : (
+    <>
+      <Error />
+    </>
+  )}
+</>
+);
 }
 
-export default CarSet;
+export default CarSet
